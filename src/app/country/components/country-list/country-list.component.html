@@ -2,18 +2,37 @@
   <table class="table tabs-md mt-2 w-full">
     <thead>
       <tr>
-        <th></th>
         <th>#</th>
         <th>Icon</th>
         <th>Flag</th>
-        <th>Nam</th>
+        <th>Name</th>
         <th>Capital</th>
         <th>Population</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr></tr>
+      @for (country of countries(); track country.cca2; let index = $index) {
+        <tr>
+          <td>{{ index + 1}}</td>
+          <!-- <td>{{ country.flag }}</td> -->
+          <td class="flex justify-center py-5"><img
+            [src]="country.flags.svg"
+            [alt]="country.name.common"
+            class="w-4"></td>
+          <td><img
+              [src]="country.flags.svg"
+              [alt]="country.name.common"
+              class="w-10">
+            </td>
+          <td>{{ country.name.common }}</td>
+          <td>{{ country.capital }}</td>
+          <td>{{ country.population }}</td>
+          <td>
+            <a class="link-primary cursor-pointer">More Information</a>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </section>
