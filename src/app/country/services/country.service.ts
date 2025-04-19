@@ -17,9 +17,26 @@ export class CountryService {
   searchByCapital(query: string): Observable<Country[]> {
     query = query.toLowerCase();
 
-    return this.http.get<RESTCountry[]>(`${API_URL}/capital/${ query }`)
+    return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`)
       .pipe(
-        map( (resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+        map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
+        catchError((error) => {
+          console.log('Error fetching countries by capital:', error);
+
+          return throwError(() => new Error
+            (`No country was found with the capital ${query}`));
+        })
+      )
+  }
+
+  searchByCountry(query: string) {
+    const url = `${API_URL}/name/${query}`;
+
+    query = query.toLowerCase();
+
+    return this.http.get<RESTCountry[]>(url)
+      .pipe(
+        map((resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp)),
         catchError((error) => {
           console.log('Error fetching countries by capital:', error);
 

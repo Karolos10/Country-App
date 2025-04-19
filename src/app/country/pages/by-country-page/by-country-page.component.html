@@ -1,2 +1,10 @@
-<country-search-input placeHolder="Search capital by country"/>
-<country-list [countries]="[]"/>
+<country-search-input
+  (value)="query.set($event)"
+  placeHolder="Search country"
+/>
+
+@if (countryResource.error()) {
+<h3>{{ countryResource.error() }}</h3>
+}@if (countryResource.hasValue()){
+<country-list [countries]="countryResource.value()!" />
+}
