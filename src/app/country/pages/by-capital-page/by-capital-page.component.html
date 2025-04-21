@@ -1,6 +1,7 @@
 <country-search-input
   placeHolder="Search capital by country"
   (value)="query.set($event)"
+  [initialValue]="query()"
   />
 
   <country-list
